@@ -102,7 +102,7 @@ export const Search = () => {
     }, 500);
     setFirstLoad(false);
     return () => clearTimeout(delayDebounceFn);
-  }, [keyword, fisrtLoad, updateUrl]);
+  }, [keyword, fisrtLoad]);
 
   return (
     <div className="container mx-auto px-4">
