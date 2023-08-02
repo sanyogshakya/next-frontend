@@ -31,13 +31,13 @@ export const getStaticPaths = async () => {
   });
 
   return {
-    paths: [...data.pages.nodes, ...data.posts.nodes, ...data.books.nodes].map(
-      (page) => ({
+    paths: [...data.pages.nodes, ...data.posts.nodes, ...data.books.nodes]
+      .filter((page) => page.uri !== "/")
+      .map((page) => ({
         params: {
           slug: page.uri.substring(1, page.uri.length - 1).split("/"),
         },
-      })
-    ),
+      })),
     fallback: "blocking",
   };
 };
