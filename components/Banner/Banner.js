@@ -7,13 +7,6 @@ register();
 export const Banner = ({ attributesData }) => {
   const enableSection = attributesData.enable_section || "0";
   const rowCount = attributesData.banner_slides || 0;
-
-  if (enableSection !== "1" && rowCount < 1) {
-    return;
-  }
-
-  const table = [...Array(rowCount)];
-
   const swiperElRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +20,12 @@ export const Banner = ({ attributesData }) => {
       console.log("slide changed");
     });
   }, []);
+
+  if (enableSection !== "1" && rowCount < 1) {
+    return;
+  }
+
+  const table = [...Array(rowCount)];
 
   return (
     <section className="banner">
