@@ -87,7 +87,7 @@ export const Search = () => {
         shallow: true,
       })
       .then(search());
-  }, [keyword, router]);
+  });
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
