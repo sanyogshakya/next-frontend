@@ -86,7 +86,7 @@ export const Search = () => {
       .push(`${router.query.slug.join("/")}?page=1&keyword=${keyword}`, null, {
         shallow: true,
       })
-      .then(updateUrl());
+      .then(search());
   };
 
   useEffect(() => {
