@@ -91,7 +91,7 @@ export const BlogListing = ({ isPaginationOrLoadMore }) => {
     if (isPaginationOrLoadMore === "0") {
       setHasLoadMore(true);
     }
-  }, []);
+  }, [isPaginationOrLoadMore]);
 
   const loadMoreHandler = async (pages) => {
     const { page, categories } = queryString.parse(window.location.search);
