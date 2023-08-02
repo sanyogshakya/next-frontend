@@ -81,15 +81,18 @@ export const Search = () => {
     searchAndAppendPosts();
   };
 
-  const updateUrl = useCallback(async () => {
-    await router
-      .push(`${router.query.slug.join("/")}?page=1&keyword=${keyword}`, null, {
-        shallow: true,
-      })
-      .then(search());
-  });
-
   useEffect(() => {
+    const updateUrl = async () => {
+      await router
+        .push(
+          `${router.query.slug.join("/")}?page=1&keyword=${keyword}`,
+          null,
+          {
+            shallow: true,
+          }
+        )
+        .then(search());
+    };
     const delayDebounceFn = setTimeout(() => {
       if (!fisrtLoad) {
         updateUrl();
