@@ -82,19 +82,20 @@ export const Search = () => {
   };
 
   const updateUrl = async () => {
-    await router.push(
-      `${router.query.slug.join("/")}?page=1&keyword=${keyword}`,
-      null,
-      {
+    await router
+      .push(`${router.query.slug.join("/")}?page=1&keyword=${keyword}`, null, {
         shallow: true,
-      }
-    );
+      })
+      .then(updateUrl());
   };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      if (!fisrtLoad) updateUrl();
-      search();
+      if (!fisrtLoad) {
+        updateUrl();
+      } else {
+        search();
+      }
     }, 500);
     setFirstLoad(false);
     return () => clearTimeout(delayDebounceFn);
