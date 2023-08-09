@@ -2,7 +2,6 @@ import { v4 as uuid } from "uuid";
 
 export const cleanAndTransformBlocks = (blocksJSON) => {
   const blocks = JSON.parse(JSON.stringify(blocksJSON));
-  console.log(blocks);
   const assignIds = (b) => {
     b.map((block) => {
       block.id = uuid();

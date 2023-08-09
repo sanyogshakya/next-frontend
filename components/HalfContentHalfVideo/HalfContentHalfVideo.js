@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { relativeToAbsoluteUrls } from "utils/relativeToAbsoluteUrls";
 
 export const HalfContentHalfVideo = ({ attributesData }) => {
-  console.log(attributesData);
   return (
     <section className="hchv py-16">
       <div className="container mx-auto px-4">

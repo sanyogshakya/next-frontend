@@ -4,7 +4,6 @@ import { mapMainMenuItems } from "./mapMainMenuItems";
 import { cleanAndTransformBlocks } from "./cleanAndTransformBlocks";
 
 export const getPageStaticProps = async (context) => {
-  console.log("CONTEXT: ", context);
   const uri = context.params?.slug ? `/${context.params.slug.join("/")}/` : "/";
   const { data } = await client.query({
     query: gql`

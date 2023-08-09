@@ -29,7 +29,6 @@ export const Search = () => {
     const data = await response.json();
     setSearchResponse(data.results);
     setTotalResults(data.total);
-    console.log("TOTAL SEARCH: ", data.total);
     if (data.total > 3 * parseInt(page || "1")) {
       setDisplayLoadMore(true);
     } else {
@@ -83,16 +82,16 @@ export const Search = () => {
 
   useEffect(() => {
     const updateUrl = async () => {
-      await router
-        .push(
-          `${router.query.slug.join("/")}?page=1&keyword=${keyword}`,
-          null,
-          {
-            shallow: true,
-          }
-        )
-        .then(search());
+      await router.push(
+        `${router.query.slug.join("/")}?page=1&keyword=${keyword}`,
+        null,
+        {
+          shallow: true,
+        }
+      );
+      search();
     };
+
     const delayDebounceFn = setTimeout(() => {
       if (!fisrtLoad) {
         updateUrl();

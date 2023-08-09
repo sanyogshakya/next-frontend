@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const SearchResults = ({ searchResults }) => {
-  console.log(searchResults);
   // return;
   return (
     <div className="pb-16 max-w-5xl mx-auto">

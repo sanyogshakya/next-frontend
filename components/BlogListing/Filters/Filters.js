@@ -2,7 +2,6 @@ import queryString from "query-string";
 import { useEffect, useState } from "react";
 
 export const Filters = ({ categories, onSearch }) => {
-  // console.log(categories);
   const [categoriesState, setCategoriesState] = useState([]);
 
   useEffect(() => {

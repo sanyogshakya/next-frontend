@@ -8,8 +8,6 @@ const handler = async (req, res) => {
     const offset = body.pages ? 0 : ((body.page || 1) - 1) * 3;
     const currentPage = body.page || 1;
     const pageSize = body.pages ? currentPage * 3 : 3;
-    console.log("OFFSET", offset);
-    console.log("page SIZE", pageSize);
     const { data } = await client.query({
       query: gql`
         query searchQuery {
