@@ -51,9 +51,9 @@ export const BookListing = ({}) => {
       window.location.search
     );
     await router.push(
-      `${router.query.slug.join(
-        "/"
-      )}?page=${pageNumber}&genre=${genre}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+      `${router.query.slug.join("/")}?page=${pageNumber || 1}&genre=${
+        genre || ""
+      }&minPrice=${minPrice || ""}&maxPrice=${maxPrice || ""}`,
       null,
       {
         shallow: true,
@@ -65,9 +65,9 @@ export const BookListing = ({}) => {
   const handleSearch = async ({ genre, minPrice, maxPrice }) => {
     // setLoadMorePageNumbers("1");
     await router.push(
-      `${router.query.slug.join(
-        "/"
-      )}?page=1&genre=${genre}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+      `${router.query.slug.join("/")}?page=1&genre=${genre || ""}&minPrice=${
+        minPrice || ""
+      }&maxPrice=${maxPrice || ""}`,
       null,
       {
         shallow: true,
