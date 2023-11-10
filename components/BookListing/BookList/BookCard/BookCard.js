@@ -17,13 +17,13 @@ export const BookCard = ({
       href={destination}
     >
       <div className="w-full">
-        <div className="h-[240px]">
+        <div className="h-[240px] relative">
           <Image
             className="w-full h-full object-cover"
             src={image}
             alt={imageAlt ? imageAlt : "Book Cover"}
-            height="200"
-            width="300"
+            fill
+            sizes="300px"
           />
         </div>
         <div className="flex items-center mt-3 justify-between">

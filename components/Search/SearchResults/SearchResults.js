@@ -5,7 +5,7 @@ export const SearchResults = ({ searchResults }) => {
   // return;
   return (
     <div className="pb-16 max-w-5xl mx-auto">
-      <h1 className="text-5xl mb-4">Search Results</h1>
+      <h1 className="font-heading text-5xl mb-4">Search Results</h1>
       {searchResults.map((result) => (
         <div className="pt-6 pb-6 border-b border-slate-500" key={result.id}>
           <Link href={result.uri} className="flex hover:text-slate-600 group">

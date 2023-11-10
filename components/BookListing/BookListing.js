@@ -1,8 +1,9 @@
+"use client";
 import { useEffect, useState } from "react";
 import queryString from "query-string";
 import { BookList } from "./BookList/BookList";
 import { Pagination } from "components/Pagination";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import { Filters } from "./Filters";
 import { Loading } from "components/Loading";
 
@@ -14,6 +15,7 @@ export const BookListing = ({}) => {
   const hasLoadMore = false;
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const searchBooks = async () => {
     const { page, genre, minPrice, maxPrice } = queryString.parse(
@@ -40,6 +42,7 @@ export const BookListing = ({}) => {
       }),
     });
     const data = await response.json();
+    console.log(data);
     setLoading(false);
     setBooks(data.books);
     setTotalBooks(data.total);
@@ -50,30 +53,22 @@ export const BookListing = ({}) => {
     const { page, genre, minPrice, maxPrice } = queryString.parse(
       window.location.search
     );
-    await router.push(
-      `${router.query.slug.join("/")}?page=${pageNumber || 1}&genre=${
-        genre || ""
-      }&minPrice=${minPrice || ""}&maxPrice=${maxPrice || ""}`,
-      null,
-      {
-        shallow: true,
-      }
+    router.push(
+      `${pathname}?page=${pageNumber || 1}&genre=${genre || ""}&minPrice=${
+        minPrice || ""
+      }&maxPrice=${maxPrice || ""}`
     );
-    searchBooks();
+    // searchBooks();
   };
 
   const handleSearch = async ({ genre, minPrice, maxPrice }) => {
     // setLoadMorePageNumbers("1");
-    await router.push(
-      `${router.query.slug.join("/")}?page=1&genre=${genre || ""}&minPrice=${
+    router.push(
+      `${pathname}?page=1&genre=${genre || ""}&minPrice=${
         minPrice || ""
-      }&maxPrice=${maxPrice || ""}`,
-      null,
-      {
-        shallow: true,
-      }
+      }&maxPrice=${maxPrice || ""}`
     );
-    searchBooks();
+    // searchBooks();
   };
 
   useEffect(() => {

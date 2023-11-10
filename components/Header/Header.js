@@ -21,6 +21,8 @@ export const Header = ({
                 height={30}
                 alt="Collins"
                 className="w-[auto] h-[auto]"
+                placeholder="blur"
+                blurDataURL={headerLogoImage}
               />
             </Link>
           </div>

@@ -1,9 +1,9 @@
+"use client";
 import { useCallback, useEffect, useState } from "react";
-import styles from "./SearchField/SearchField.module.css";
 import { SearchField } from "./SearchField";
 import { SearchResults } from "./SearchResults";
 import queryString from "query-string";
-import { useRouter } from "next/router";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { LoadMore } from "components/LoadMore";
 
 export const Search = () => {
@@ -15,6 +15,9 @@ export const Search = () => {
   const [fisrtLoad, setFirstLoad] = useState(true);
 
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  console.log(searchParams.get("keyword"));
 
   const search = async () => {
     const { page, keyword, pages } = queryString.parse(window.location.search);
@@ -39,6 +42,15 @@ export const Search = () => {
   const searchFieldChangeHandler = useCallback((e) => {
     setKeyword(e.target.value);
     setLoadMorePageNumbers("1");
+    const updateUrl = async () => {
+      router.push(`${pathname}?page=1&keyword=${e.target.value}`);
+      // search();
+    };
+    const delayDebounceFn = setTimeout(() => {
+      updateUrl();
+    }, 500);
+    setFirstLoad(false);
+    return () => clearTimeout(delayDebounceFn);
   }, []);
 
   const searchAndAppendPosts = async () => {
@@ -68,46 +80,48 @@ export const Search = () => {
     setLoadMorePageNumbers(
       (prevState) => `${prevState},${parseInt(pageToAdd) + 1}`
     );
-    await router.push(
-      `${router.query.slug.join("/")}?page=${parseInt(
+    router.push(
+      `${pathname}?page=${parseInt(
         currentPage
-      )}&keyword=${searchKeyword}&pages=${pages},${parseInt(currentPage)}`,
-      null,
-      {
-        shallow: true,
-      }
+      )}&keyword=${searchKeyword}&pages=${pages},${parseInt(currentPage)}`
     );
-    searchAndAppendPosts();
+    // searchAndAppendPosts();
   };
 
-  useEffect(() => {
-    const updateUrl = async () => {
-      await router.push(
-        `${router.query.slug.join("/")}?page=1&keyword=${keyword}`,
-        null,
-        {
-          shallow: true,
-        }
-      );
-      search();
-    };
+  // useEffect(() => {
+  //   const updateUrl = async () => {
+  //     router.push(`${pathname}?page=1&keyword=${keyword}`);
+  //     // search();
+  //   };
 
-    const delayDebounceFn = setTimeout(() => {
-      if (!fisrtLoad) {
-        updateUrl();
-      } else {
-        search();
-      }
-    }, 500);
-    setFirstLoad(false);
-    return () => clearTimeout(delayDebounceFn);
-  }, [keyword, fisrtLoad]);
+  //   const delayDebounceFn = setTimeout(() => {
+  //     if (!fisrtLoad) {
+  //       updateUrl();
+  //     } else {
+  //       search();
+  //     }
+  //   }, 500);
+  //   setFirstLoad(false);
+  //   return () => clearTimeout(delayDebounceFn);
+  // }, [keyword, fisrtLoad]);
+
+  useEffect(() => {
+    search();
+  }, []);
+
+  // useEffect(() => {
+  //   search();
+  //   // if (isPaginationOrLoadMore === "0") {
+  //   //   setHasLoadMore(true);
+  //   // }
+  // }, []);
 
   return (
     <div className="container mx-auto px-4">
       <SearchField
         onSearchFieldChange={searchFieldChangeHandler}
         searchKeyword={keyword}
+        value={searchParams.get("keyword")}
       />
       <SearchResults searchResults={searchResponse} />
       {displayLoadMore && (

@@ -17,7 +17,9 @@ export const BookDetails = ({ attributesData }) => {
             />
           </div>
           <div className="mt-10 md:w-[70%] md:mt-0 lg:w-1/2 md:pl-4 lg:pl-10">
-            <h1 className="text-6xl lg:mt-8 mb-2">{attributesData.title}</h1>
+            <h1 className="font-heading text-6xl lg:mt-8 mb-2">
+              {attributesData.title}
+            </h1>
             {attributesData.genres && (
               <div className="mt-0 mb-6 flex gap-4">
                 {attributesData.genres.map((genre) => (

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useRef, useEffect } from "react";
 import { register } from "swiper/element/bundle";
@@ -34,7 +36,7 @@ export const Banner = ({ attributesData }) => {
           slides-per-view="1"
           navigation="false"
           pagination="false"
-          class="swiper-initialized swiper-horizontal"
+          className="swiper-initialized swiper-horizontal"
         >
           {table.map((_, index) => {
             const title = `banner_slides_${index}_title`;
@@ -55,7 +57,7 @@ export const Banner = ({ attributesData }) => {
                   priority
                 />
                 <div className="container mx-auto px-4 z-10">
-                  <h1 className="title text-white text-6xl mb-8">
+                  <h1 className="title font-heading text-white text-6xl mb-8">
                     {attributesData[title]}
                   </h1>
                   <p className="subtitle text-white">

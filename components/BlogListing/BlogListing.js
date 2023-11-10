@@ -1,7 +1,8 @@
+"use client";
 import { useEffect, useState } from "react";
 import { BlogList } from "./BlogList/BlogList";
 import { Pagination } from "components/Pagination";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import queryString from "query-string";
 import { Filters } from "./Filters";
 import { LoadMore } from "components/LoadMore";
@@ -15,6 +16,7 @@ export const BlogListing = ({ isPaginationOrLoadMore }) => {
   const [hasLoadMore, setHasLoadMore] = useState(false);
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const searchPosts = async () => {
     const { page, categories, pages } = queryString.parse(
@@ -61,29 +63,15 @@ export const BlogListing = ({ isPaginationOrLoadMore }) => {
   const handlePageClick = async (pageNumber) => {
     const { page, categories } = queryString.parse(window.location.search);
     const selectedCategories = categories ? categories.toString() : "";
-    await router.push(
-      `${router.query.slug.join(
-        "/"
-      )}?page=${pageNumber}&categories=${selectedCategories}`,
-      null,
-      {
-        shallow: true,
-      }
+    router.push(
+      `${pathname}?page=${pageNumber}&categories=${selectedCategories}`
     );
-    searchPosts();
   };
 
   const handleSearch = async (categories) => {
     setLoadMorePageNumbers("1");
     const selectedCategories = categories ? categories.toString() : "";
-    await router.push(
-      `${router.query.slug.join("/")}?page=1&categories=${selectedCategories}`,
-      null,
-      {
-        shallow: true,
-      }
-    );
-    searchPosts();
+    router.push(`${pathname}?page=1&categories=${selectedCategories}`);
   };
 
   useEffect(() => {
@@ -98,16 +86,12 @@ export const BlogListing = ({ isPaginationOrLoadMore }) => {
     const selectedCategories = categories ? categories.toString() : "";
     const currentPage = page ? parseInt(page) + 1 : 2;
     setLoadMorePageNumbers((prevState) => `${prevState},${parseInt(page) + 1}`);
-    await router.push(
-      `${router.query.slug.join("/")}?page=${parseInt(
+    router.push(
+      `${pathname}?page=${parseInt(
         currentPage
       )}&categories=${selectedCategories.toString()}&pages=${pages},${parseInt(
         currentPage
-      )}`,
-      null,
-      {
-        shallow: true,
-      }
+      )}`
     );
     searchAndAppendPosts();
   };

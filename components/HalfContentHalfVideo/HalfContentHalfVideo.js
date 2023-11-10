@@ -1,6 +1,3 @@
-import { gql } from "@apollo/client";
-import client from "client";
-import { useEffect } from "react";
 import { relativeToAbsoluteUrls } from "utils/relativeToAbsoluteUrls";
 
 export const HalfContentHalfVideo = ({ attributesData }) => {
@@ -14,7 +11,9 @@ export const HalfContentHalfVideo = ({ attributesData }) => {
             </video>
           </figure>
           <div className="content w-[100%] md:w-[calc(50%-3rem)]">
-            <h2 className="text-5xl mb-10">{attributesData.title}</h2>
+            <h2 className="font-heading text-5xl mb-10">
+              {attributesData.title}
+            </h2>
             <div
               className="subtitle"
               dangerouslySetInnerHTML={{
